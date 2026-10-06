@@ -1,6 +1,6 @@
 module github.com/KenShabby/podcast_index
 
-go 1.24.1
+go 1.26
 
 require github.com/jjgmckenzie/podcastindex v0.1.4
 
