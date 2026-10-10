@@ -36,8 +36,14 @@ func main() {
 		fmt.Printf("failed to search podcasts: %v", err)
 	}
 	for _, podcast := range podcasts {
-		fmt.Printf("%s: %s\n", podcast.Title, podcast.Description)
-		fmt.Printf("Last episode published: %v\n\n", podcast.NewestItemPubDate)
+		fmt.Printf("%s\n", podcast.Title)
+		episodes, err := client.GetEpisodes(ctx, *podcast, nil)
+		if err != nil {
+			fmt.Printf("Could not find episodes: %v", err)
+		}
+		for _, episode := range *episodes {
+			fmt.Printf("%s: %s\n", podcast.Title, episode.Title)
+		}
 	}
 }
 
