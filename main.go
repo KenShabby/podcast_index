@@ -1,13 +1,16 @@
 package main
 
 import (
+	"cmp"
 	"context"
 	"fmt"
 	"log"
 	"os"
+	"slices"
 	"time"
 
 	"github.com/jjgmckenzie/podcastindex"
+	"github.com/jjgmckenzie/podcastindex/podcast"
 )
 
 func main() {
@@ -35,6 +38,18 @@ func main() {
 	if err != nil {
 		fmt.Printf("failed to search podcasts: %v", err)
 	}
+
+	categories, err := client.Categories(ctx)
+	if err != nil {
+		fmt.Printf("Error getting categories: %v", err)
+	}
+	slices.SortFunc(categories, func(a, b podcast.Category) int {
+		return cmp.Compare(a.Name, b.Name)
+	})
+	for _, category := range categories {
+		fmt.Printf("Category: %s\n", category.Name)
+	}
+
 	for _, podcast := range podcasts {
 		fmt.Printf("%s\n", podcast.Title)
 		episodes, err := client.GetEpisodes(ctx, *podcast, nil)
