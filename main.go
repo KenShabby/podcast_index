@@ -46,9 +46,9 @@ func main() {
 	slices.SortFunc(categories, func(a, b podcast.Category) int {
 		return cmp.Compare(a.Name, b.Name)
 	})
-	for _, category := range categories {
-		fmt.Printf("Category: %s\n", category.Name)
-	}
+	// 	for _, category := range categories {
+	// 		fmt.Printf("Category: %s\n", category.Name)
+	// 	}
 
 	for _, podcast := range podcasts {
 		fmt.Printf("%s\n", podcast.Title)
